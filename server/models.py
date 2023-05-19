@@ -33,6 +33,9 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     records = db.relationship("Record", backref = "user")
+    likes = db.relationship("Like", backref="user")
+    comments = db.relationship("Comment", backref = "user")
+
     
     following = db.relationship(
         "User", lambda: user_follows,
@@ -76,7 +79,8 @@ class Record(db.Model):
             "title": self.title,
             "artist": self.artist,
             "year": self.year,
-            "genre": self.genre
+            "genre": self.genre,
+            "cover_art": self.cover_art
         }
 
 class Like(db.Model):
@@ -112,5 +116,6 @@ class Comment(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "text": self.text
+            "text": self.text,
+            "user":self.user.username
         }
