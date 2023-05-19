@@ -1,12 +1,25 @@
 import './App.css';
 import {Routes, Route} from "react-router-dom"
 import Login from './componenents/Login';
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import Signup from './componenents/Signup';
+import ProfilePage from './componenents/ProfilePage';
+
 
 
 function App() {
   const [currentUser, setUser] = useState(null)
+
+  useEffect(()=>{
+    fetch('/check_session')
+    .then(response => {
+      if(response.ok){
+        response.json()
+        .then(data => setUser(data))
+      }
+    })
+  },[])
+
 
   function handleLogin(userdata){
     fetch('/login',{
@@ -47,6 +60,7 @@ function App() {
       <Routes>
         <Route path = "login" element ={<Login attemptLogin={handleLogin}/>}/>
         <Route path = "signup" element ={<Signup attemptSignup={handleSignup}/>} />
+        <Route path = "profile_page" element={<ProfilePage currentUser={currentUser}/>} />
       </Routes>
     </>
   );

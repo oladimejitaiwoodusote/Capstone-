@@ -49,11 +49,27 @@ def signup():
     session["user_id"] = new_user.id
     return new_user.to_dict(), 201
 
-    # new_owner = Owner(email=json['email'], name = json['name'], username = json['username'], password = pw_hash)
-    # db.session.add(new_owner)
-    # db.session.commit()
-    # session['owner_id'] = new_owner.id
-    # return new_owner.to_dict(), 201
+@app.get('/users_records/<int:id>')
+def get_records(id):
+    records = Record.query.where(Record.user_id == id).all()
+    record_dicts = [record.to_dict() for record in records]
+    return record_dicts, 200
+
+@app.get('/comments/<int:id>')
+def get_comments(id):
+    comments = Comment.query.where(Comment.record_id == id).all()
+    comment_dicts = [comment.to_dict() for comment in comments]
+    return comment_dicts, 200   
+
+@app.post('/comment')
+def post_comment():
+    json = request.json
+    comment = Comment(text=json["text"], user_id=json["user_id"], record_id=json["record_id"])
+    db.session.add(comment)
+    db.session.commit()
+    return comment.to_dict(), 201
+    
+
 
 
 if __name__ == "__main__":
