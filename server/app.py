@@ -27,7 +27,7 @@ def check_session():
     if current_user:
         return current_user.to_dict(), 200
     else:
-        return {"message": "Not logged in"}
+        return {"message": "Not logged in"}, 401
 
 @app.post('/login')
 def login():
@@ -49,6 +49,11 @@ def signup():
     session["user_id"] = new_user.id
     return new_user.to_dict(), 201
 
+@app.delete('/logout')
+def logout():
+    session.pop('user_id')
+    return {}, 204
+
 @app.get('/users_records/<int:id>')
 def get_records(id):
     records = Record.query.where(Record.user_id == id).all()
@@ -61,6 +66,7 @@ def get_comments(id):
     comment_dicts = [comment.to_dict() for comment in comments]
     return comment_dicts, 200   
 
+#Add New Comment
 @app.post('/comment')
 def post_comment():
     json = request.json
@@ -68,9 +74,41 @@ def post_comment():
     db.session.add(comment)
     db.session.commit()
     return comment.to_dict(), 201
+
+#Add new record on profile page
+@app.post('/record')
+def post_record():
+    json = request.json
+    record = Record(title=json["title"], artist=json["artist"], year=json["year"], genre=json["genre"], cover_art=json["cover_art"], user_id=session["user_id"])
+    db.session.add(record)
+    db.session.commit()
+    return record.to_dict(), 201
+
+@app.delete('/record/<int:id>')
+def delete_record(id):
+    record = Record.query.get(id)
+    db.session.delete(record)
+    db.session.commit()
+    return record.to_dict(), 201
+
+@app.patch('/record/<int:id>')
+def edit_record(id):
+    json = request.json
+    record = Record.query.filter(Record.id == id).update(json)
+    db.session.commit()
+    record = Record.query.get(id)
+    return record.to_dict(), 201
+
+@app.get('/users/<int:id>')
+def get_user_followersandfollowing(id):
+    user = User.query.get(id)
+    followers = user.followers
+    followings = user.following
+    follower_dicts = [follower.to_dict() for follower in followers]
+    following_dicts = [following.to_dict() for following in followings]
+    return {"followers": follower_dicts, "followings": following_dicts}, 201
+
     
-
-
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

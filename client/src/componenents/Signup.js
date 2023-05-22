@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
-function Signup({attemptSignup}) {
+function Signup({attemptSignup, currentUser}) {
+    const navigate = useNavigate()
     const [formData, setForm] = useState(
         {
             username: "",
@@ -17,6 +19,14 @@ function Signup({attemptSignup}) {
         e.preventDefault()
         attemptSignup(formData)
     }
+
+    useEffect(()=>{
+        if (currentUser){
+            navigate('/profile_page')
+        }
+    })
+
+    console.log(currentUser)
 
   return (
     <div>
