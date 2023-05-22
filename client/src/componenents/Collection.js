@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Record from './Record'
 
-function Collection({currentUser}) {
-    const [records, setRecords] = useState([])
- 
-    useEffect(()=>{
-        fetch(`users_records/${currentUser.id}`)
-        .then(response => response.json())
-        .then(data => setRecords(data))
-    },[])
+function Collection({currentUser, records, handleDelete, onEdit}) {
 
     const collection = records.map(record => {
-        return <Record key = {record.id} record={record} user={currentUser}/>
+        return <Record key = {record.id} record={record} user={currentUser} handleDelete={handleDelete} onEdit={onEdit}/>
     })
 
   return (
