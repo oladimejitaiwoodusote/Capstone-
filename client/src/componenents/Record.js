@@ -12,6 +12,7 @@ function Record({record, user, handleDelete, onEdit}) {
         genre: "",
         cover_art: ""
     })
+
     
     useEffect(()=>{
         fetch(`/comments/${record.id}`)
@@ -41,13 +42,14 @@ function Record({record, user, handleDelete, onEdit}) {
         })
         .then(response => response.json())
         .then(data => setComments([...comments, data]))
+        setNewComment("")
     }
 
     function changeHandler(e){
         setNewComment(e.target.value)
     }
     function handleClick(e){
-        fetch(`/record/${record.id}`,{
+        fetch(`/users_record/${record.id}`,{
             method: "DELETE"
         })
         .then(response => response.json())
