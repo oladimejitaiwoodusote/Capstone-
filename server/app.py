@@ -20,6 +20,7 @@ db.init_app(app)
 def get():
     return "1"
 
+#Check if User is logged in
 @app.get('/check_session')
 def check_session():
     user_id = session.get("user_id")
@@ -29,6 +30,7 @@ def check_session():
     else:
         return {"message": "Not logged in"}, 401
 
+#Log-In
 @app.post('/login')
 def login():
     json = request.json
@@ -39,6 +41,7 @@ def login():
     else:
         return {"message": "Invalid username or password"}, 401
 
+#Create account
 @app.post('/signup')
 def signup():
     json = request.json
@@ -49,20 +52,23 @@ def signup():
     session["user_id"] = new_user.id
     return new_user.to_dict(), 201
 
+#Logout
 @app.delete('/logout')
 def logout():
     session.pop('user_id')
     return {}, 204
 
+#Get users records based on user's ID
 @app.get('/users_records/<int:id>')
 def get_records(id):
-    records = Record.query.where(Record.user_id == id).all()
-    record_dicts = [record.to_dict() for record in records]
+
+    users_records = UsersRecord.query.where(UsersRecord.user_id == id).all()
+    record_dicts = [record.record_details_to_dict() for record in users_records]
     return record_dicts, 200
 
 @app.get('/comments/<int:id>')
 def get_comments(id):
-    comments = Comment.query.where(Comment.record_id == id).all()
+    comments = Comment.query.where(Comment.users_record_id == id).all()
     comment_dicts = [comment.to_dict() for comment in comments]
     return comment_dicts, 200   
 
@@ -70,7 +76,7 @@ def get_comments(id):
 @app.post('/comment')
 def post_comment():
     json = request.json
-    comment = Comment(text=json["text"], user_id=json["user_id"], record_id=json["record_id"])
+    comment = Comment(text=json["text"], user_id=json["user_id"], users_record_id=json["record_id"])
     db.session.add(comment)
     db.session.commit()
     return comment.to_dict(), 201
@@ -79,17 +85,33 @@ def post_comment():
 @app.post('/record')
 def post_record():
     json = request.json
-    record = Record(title=json["title"], artist=json["artist"], year=json["year"], genre=json["genre"], cover_art=json["cover_art"], user_id=session["user_id"])
-    db.session.add(record)
-    db.session.commit()
-    return record.to_dict(), 201
+    record = Record(title=json["title"], artist=json["artist"], year=json["year"], genre=json["genre"], cover_art=json["cover_art"])
+    existing_record = Record.query.where(Record.title == record.title and Record.artist == record.artist).first()
+    print(existing_record)
+    if existing_record:
+        new_user_record = UsersRecord(record_id = existing_record.id, user_id = session["user_id"])
+        db.session.add(new_user_record)
+        db.session.commit()
+        return new_user_record.record_details_to_dict(), 201
+    
+    else:
+        db.session.add(record)
+        db.session.commit()
+        new_record = Record.query.order_by(Record.id.desc()).first()
+        user_record = UsersRecord(record_id = new_record.id, user_id = session["user_id"])
+        db.session.add(user_record)
+        db.session.commit()
+        return user_record.record_details_to_dict(), 201
 
-@app.delete('/record/<int:id>')
+#Delete Record from profile page
+@app.delete('/users_record/<int:id>')
 def delete_record(id):
-    record = Record.query.get(id)
-    db.session.delete(record)
+    users_record = UsersRecord.query.get(id)
+    db.session.delete(users_record)
     db.session.commit()
-    return record.to_dict(), 201
+    return f"{id}", 201
+
+
 
 @app.patch('/record/<int:id>')
 def edit_record(id):
@@ -107,8 +129,6 @@ def get_user_followersandfollowing(id):
     follower_dicts = [follower.to_dict() for follower in followers]
     following_dicts = [following.to_dict() for following in followings]
     return {"followers": follower_dicts, "followings": following_dicts}, 201
-
-    
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

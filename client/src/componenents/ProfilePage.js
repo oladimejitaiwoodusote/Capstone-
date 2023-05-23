@@ -29,10 +29,7 @@ function ProfilePage({currentUser, logout}) {
             })
         }
     },[currentUser])
-
-    console.log(followers)
-    console.log(followings)
-
+    
     const [showForm, setShow] = useState(false) 
     const [recordForm, setRecord] = useState({
         title: "",
@@ -64,11 +61,17 @@ function ProfilePage({currentUser, logout}) {
         })
         .then(response => response.json())
         .then(data => setRecords([...records,data]))
+        setRecord({
+            title: "",
+            artist: "",
+            year: "",
+            genre: "",
+            cover_art: ""
+        })
     }
 
-    function handleDelete(deletedRecord){
-        console.log(deletedRecord)
-        const latestRecords = records.filter(record => record.id !== deletedRecord.id )
+    function handleDelete(id){
+        const latestRecords = records.filter(record => record.id !== id )
         setRecords(latestRecords)
     }
 
