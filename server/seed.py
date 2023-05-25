@@ -8,12 +8,14 @@ fake = Faker()
 bcrypt = Bcrypt(app)
 
 def create_users():
+    avatars = ["https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FqNzvYZT0RbuuyuSyrs6wWw%2Fnormalized.jpg&width=719", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Elliott_Smith.jpg/440px-Elliott_Smith.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/MF_Doom_-_Hultsfred_2011_%28cropped%29.jpg/440px-MF_Doom_-_Hultsfred_2011_%28cropped%29.jpg"]
     users = []
-    for _ in range(10):
+    for _ in range(30):
         u = User(
             username = fake.user_name(),
             email = fake.email(),
-            password = bcrypt.generate_password_hash("password").decode('utf-8')
+            password = bcrypt.generate_password_hash("password").decode('utf-8'),
+            avatar = rc(avatars)
         )
         users.append(u)
 
@@ -100,9 +102,9 @@ if __name__ == "__main__":
         db.session.commit()
         #Make connections
         for u in users:
-            temp = users
-            temp.remove(u)
-            u.following = sample(temp,randint(0,len(temp)-1))
+            # temp = users
+            # temp.remove(u)
+            u.following = sample(users,randint(0,len(users)-1))
 
         records = create_records()
         db.session.add_all(records)

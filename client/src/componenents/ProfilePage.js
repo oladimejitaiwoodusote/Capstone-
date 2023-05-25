@@ -2,31 +2,22 @@ import React, {useState, useEffect} from 'react'
 import Collection from './Collection' 
 import {useNavigate} from 'react-router-dom'
 
-function ProfilePage({currentUser, logout}) {
+function ProfilePage({currentUser , logout, followers, followings}) {
     const [records, setRecords] = useState([])
     const navigate = useNavigate()
-    const [followers, setFollowers] = useState([])
-    const [followings, setFollowings] = useState([])
 
     useEffect(()=>{
         if (currentUser){
         fetch(`users_records/${currentUser.id}`)
         .then(response => response.json())
-        .then(data => setRecords(data))
+        .then(data => {
+            console.log("if")
+            setRecords(data)
+        })
         }
         else{
+            console.log("else")
             navigate('/')
-        }
-    },[currentUser])
-
-    useEffect(()=>{
-        if(currentUser){
-            fetch(`users/${currentUser.id}`)
-            .then(response => response.json())
-            .then(data => {
-                setFollowers(data["followers"])
-                setFollowings(data["followings"])
-            })
         }
     },[currentUser])
     

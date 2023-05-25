@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { Avatar } from '@mui/material';
+import {Link} from 'react-router-dom'
 
 function Record({record, user, handleDelete, onEdit}) {
+    const [deleteButton, setDeleteButton] = useState(false)
     const [comments, setComments] = useState([])
     const [newComment, setNewComment] = useState("")
     const [showEditForm, setShow] = useState(false)
@@ -13,7 +15,6 @@ function Record({record, user, handleDelete, onEdit}) {
         cover_art: ""
     })
 
-    
     useEffect(()=>{
         fetch(`/comments/${record.id}`)
         .then(response => response.json())
@@ -32,7 +33,7 @@ function Record({record, user, handleDelete, onEdit}) {
             "record_id": record.id,
         }
 
-        fetch(`comment`,{
+        fetch(`/comment`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -81,13 +82,14 @@ function Record({record, user, handleDelete, onEdit}) {
             <Avatar
                 className="record_avatar"
                 alt = "Avatar"
-                src = "https://cdn.britannica.com/91/197591-050-E90418AF/Bob-Dylan-Bringing-It-All-Back-Home-1965.jpg"
-                />                
+                src = {record.avatar}
+                />   
+            <Link to={`/users/${record.user_id}`}>{record.username}</Link>
         </div>
         <img className="record_img" src = {record.cover_art}/>
         <button>Like Button</button>
-        <button onClick={handleEdit}>Edit Details</button>
-        <button onClick={handleClick}>Delete Record</button>
+        {user.id == record.user_id?<button onClick={handleEdit}>Edit Details</button>: null}
+        {user.id == record.user_id? <button onClick={handleClick}>Delete Record</button>: null}
         {showEditForm? 
         <form onSubmit={editSubmitHandler}>
             <input value={editForm.title} onChange={editHandler} placeholder='Enter title' name='title'/>

@@ -61,7 +61,6 @@ def logout():
 #Get users records based on user's ID
 @app.get('/users_records/<int:id>')
 def get_records(id):
-
     users_records = UsersRecord.query.where(UsersRecord.user_id == id).all()
     record_dicts = [record.record_details_to_dict() for record in users_records]
     return record_dicts, 200
@@ -111,8 +110,6 @@ def delete_record(id):
     db.session.commit()
     return f"{id}", 201
 
-
-
 @app.patch('/record/<int:id>')
 def edit_record(id):
     json = request.json
@@ -129,6 +126,23 @@ def get_user_followersandfollowing(id):
     follower_dicts = [follower.to_dict() for follower in followers]
     following_dicts = [following.to_dict() for following in followings]
     return {"followers": follower_dicts, "followings": following_dicts}, 201
+
+#Get Feed
+@app.get('/feed/<int:id>')
+def get_feed(id):
+    user = User.query.get(id)
+    followings = user.following
+    #users_records = UsersRecord.query.where(UsersRecord.user_id == id).all()
+    followings_IDs = [user.id for user in followings]
+    foll_collections = [UsersRecord.query.where(UsersRecord.user_id == i).all() for i in followings_IDs]
+    follwings_dicts = [i.record_details_to_dict() for j in foll_collections for i in j]
+
+    print(user)
+    print(followings)
+    print(followings_IDs)
+    print(foll_collections)
+    print(follwings_dicts)
+    return follwings_dicts, 200
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
