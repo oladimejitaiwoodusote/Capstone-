@@ -13,7 +13,7 @@ function Login({attemptLogin, currentUser}) {
 
     useEffect(()=> {
         if(currentUser){
-            navigate('/profile_page')
+            navigate('/main_feed')
     }
        
     },[currentUser])

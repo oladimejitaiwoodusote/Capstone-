@@ -28,6 +28,7 @@ class User(db.Model):
     username = db.Column(db.String)
     email = db.Column(db.String)
     password = db.Column(db.String)
+    avatar = db.Column(db.String)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
@@ -159,6 +160,10 @@ class UsersRecord(db.Model):
             "artist": self.record.artist,
             "year": self.record.year,
             "genre": self.record.genre,
-            "cover_art": self.record.cover_art
+            "cover_art": self.record.cover_art,
+            "avatar": self.user.avatar,
+            "username": self.user.username,
+            "user_id": self.user_id
+
         }
 
