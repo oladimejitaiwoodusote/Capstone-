@@ -144,5 +144,37 @@ def get_feed(id):
     print(follwings_dicts)
     return follwings_dicts, 200
 
+#Get user's details
+@app.get('/users_details/<int:id>')
+def get_user(id):
+    user = User.query.get(id)
+    print(user)
+    return jsonify(user.to_dict()), 200
+
+#Unfollow user
+@app.get('/users_unfollow/<int:id>')
+def unfollow_user(id):
+    user = User.query.get(id)
+    followers = user.followers
+    user_id = session.get("user_id")
+    currentUser = User.query.get(user_id)
+    followers.remove(currentUser)
+    db.session.commit()
+    return currentUser.to_dict(), 201
+
+#Follow user
+@app.get('/users_follow/<int:id>')
+def follow_user(id):
+    user = User.query.get(id)
+    followers = user.followers
+    user_id = session.get("user_id")
+    currentUser = User.query.get(user_id)
+    followers.append(currentUser)
+    db.session.commit()
+    return currentUser.to_dict(), 201
+    
+
+
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
