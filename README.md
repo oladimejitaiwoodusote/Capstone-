@@ -12,3 +12,4 @@ This project is the culmination of my learning journey at Flatiron school .This 
 * User Profiles: Users can visit other users' profiles and access their own profile page through a navbar link.
 * Profile Customization: Users can customize their profile settings on a dedicated settings page.
 * User Discovery: Users can discover and follow other users through a discovery page.
+
