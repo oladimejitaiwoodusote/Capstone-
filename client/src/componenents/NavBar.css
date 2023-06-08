@@ -1,0 +1,31 @@
+.navbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    padding: 10px;
+}
+
+.navbar-link{
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar-link:hover{
+    border-bottom: 2px solid #ffff;
+}
+
+.active-link{
+    border-bottom: 2px solid #ffff;
+}
+
+.navbar-wrapper{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+

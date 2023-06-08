@@ -1,8 +1,6 @@
 from flask import Flask, request, make_response, jsonify, session
 from flask_migrate import Migrate  
-
 from flask_bcrypt import Bcrypt
-
 from models import *
 
 app = Flask(__name__)
@@ -52,6 +50,21 @@ def signup():
     session["user_id"] = new_user.id
     return new_user.to_dict(), 201
 
+#Update Account Info
+@app.patch('/update')
+def update():
+    userUpdate = request.json
+    #user = User.query.filter(User.id == session["user_id"]).update(userUpdate)
+    user = User.query.filter(User.id == session["user_id"]).first()
+    user.username = userUpdate["username"]
+    user.email = userUpdate["email"]
+    pass_hash = bcrypt.generate_password_hash(userUpdate["password"]).decode('utf-8')
+    user.password = pass_hash
+    db.session.commit()
+
+    user = User.query.get(session["user_id"])
+    return user.to_dict(), 201
+
 #Logout
 @app.delete('/logout')
 def logout():
@@ -69,7 +82,30 @@ def get_records(id):
 def get_comments(id):
     comments = Comment.query.where(Comment.users_record_id == id).all()
     comment_dicts = [comment.to_dict() for comment in comments]
-    return comment_dicts, 200   
+    return comment_dicts, 200  
+
+@app.get('/likes/<int:id>') 
+def get_likes(id):
+    likes = Like.query.where(Like.users_record_id == id).all()
+    like_dicts = [like.to_dict() for like in likes]
+    return like_dicts, 200
+
+@app.post('/addlike/<int:id>')
+def add_like(id):
+    return "9"
+
+#Check to see if record was liked
+@app.get('/check_like/<int:id>')
+def check_like(id):
+    like = Like.query.where(Like.users_record_id == id and Like.user_id == session['user_id']).first()
+    print(like)
+    print(id)
+    print(session["user_id"])
+    if (like):
+        return {"message": "true"}, 200
+    else:
+        return {"message": "false"}, 200
+    
 
 #Add New Comment
 @app.post('/comment')
@@ -132,17 +168,25 @@ def get_user_followersandfollowing(id):
 def get_feed(id):
     user = User.query.get(id)
     followings = user.following
-    #users_records = UsersRecord.query.where(UsersRecord.user_id == id).all()
     followings_IDs = [user.id for user in followings]
     foll_collections = [UsersRecord.query.where(UsersRecord.user_id == i).all() for i in followings_IDs]
     follwings_dicts = [i.record_details_to_dict() for j in foll_collections for i in j]
-
-    print(user)
-    print(followings)
-    print(followings_IDs)
-    print(foll_collections)
-    print(follwings_dicts)
     return follwings_dicts, 200
+
+@app.get('/discoveries/<int:id>')
+def get_discoveries(id):
+    user = User.query.get(id)
+    followings = user.following
+    users = User.query.all()
+    users.remove(user)
+    [users.remove(following) for following in followings]
+    print("mark")
+    print(followings)
+    print(users)
+    discovery_IDs = [user.id for user in users]
+    discoveries_collections = [UsersRecord.query.where(UsersRecord.user_id ==i).all() for i in discovery_IDs]
+    discovery_dicts = [i.record_details_to_dict() for j in discoveries_collections for i in j]
+    return discovery_dicts, 200
 
 #Get user's details
 @app.get('/users_details/<int:id>')

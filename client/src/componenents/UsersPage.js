@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import Record from './Record'
 import {Avatar} from '@mui/material'
+import './UsersPage.css'
+
 
 function UsersPage({currentUser}) {
     const params = useParams()
@@ -31,11 +33,9 @@ function UsersPage({currentUser}) {
       })
     },[])
 
-    console.log(usersRecords)
     const profilesRecords = usersRecords.map(record => {
-        return <Record record={record} user={currentUser} />
+        return <Record key={record.id} record={record} user={currentUser} />
     })
-    console.log(profilesRecords)
 
     const followersIDs = usersFollowers.map(follower => {
       return follower.id
@@ -58,12 +58,10 @@ function UsersPage({currentUser}) {
       })
     }
 
-    console.log(followersIDs)
-
     if(userDetails && currentUser){
   return (
     <div>
-        <div>
+        <div className="users-page-info">
         <Avatar
                 className="record_avatar"
                 alt = "Avatar"
@@ -72,7 +70,7 @@ function UsersPage({currentUser}) {
           <h1>{userDetails.username}</h1>
           <h1>{usersFollowers.length} Followers</h1>
           <h1>{usersFollowings.length} Following</h1>
-          {followersIDs.includes(currentUser.id)? <button onClick={handleUnfollow}>Unfollow</button>: <button onClick={handleFollow}>Follow</button>}
+          {followersIDs.includes(currentUser.id)? <button className="users-page-button" onClick={handleUnfollow}>Unfollow</button>: <button className="users-page-button" onClick={handleFollow}>Follow</button>}
         </div>
         {profilesRecords}
     </div>

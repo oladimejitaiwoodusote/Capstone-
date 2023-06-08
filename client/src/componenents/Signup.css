@@ -1,0 +1,59 @@
+.signup-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-only{
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 10px;
+}
+
+.signup-login-only{
+    border: 1px solid #ccc;
+    padding: 3.6rem;
+    border-radius: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.signup-logo{
+    font-family: 'Billabong', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.signup-form{
+    display:flex;
+    flex-direction: column;
+    max-width: 300px;
+    width: 100%;
+}
+
+.signup-input-field{
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 3px
+}
+
+.signup-submit-button{
+    background-color: #000;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.signup-login-text{
+    margin-top: 1.5rem;
+}
+
+.signup-login-button{
+    border: none;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+}

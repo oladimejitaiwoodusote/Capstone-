@@ -46,7 +46,7 @@ class User(db.Model):
     )
 
     def __repr__(self):
-        return f"<User username={self.username}>"
+        return f"<User id={self.id} username={self.username}>"
 
     def to_dict(self):
         return {
@@ -99,11 +99,14 @@ class Like(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     def __repr__(self):
-        return f"<Like id={self.id}>"
+        return f"<Like id={self.id} user_id={self.user_id} users_record_id={self.users_record_id} users_record_user={self.users_record.user_id}>"
 
     def to_dict(self):
         return {
-            "id": self.id
+            "id": self.id,
+            "user_id": self.user_id,
+            "users_record_id": self.users_record_id,
+            "users_record": self.users_record.user_id
         }
 
 class Comment(db.Model):
@@ -126,7 +129,8 @@ class Comment(db.Model):
         return {
             "id": self.id,
             "text": self.text,
-            "user":self.user.username
+            "user":self.user.username,
+            "user_id": self.user_id
         }
 
 class UsersRecord(db.Model):
