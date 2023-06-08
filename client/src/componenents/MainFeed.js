@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Record from './Record'
 
-function MainFeed({currentUser, followings}) {
+function MainFeed({currentUser}) {
   const [feed, setFeed] = useState([])
   
   useEffect(()=>{
@@ -16,10 +16,8 @@ function MainFeed({currentUser, followings}) {
     return <Record key={record.id} user = {currentUser} record={record}/>
   })
 
-
   return (
     <div>
-        <h1>Main Feed</h1>
         {Feed}
     </div>
   )

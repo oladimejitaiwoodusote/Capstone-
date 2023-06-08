@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Collection from './Collection' 
 import {useNavigate} from 'react-router-dom'
+import './ProfilePage.css'
 
 function ProfilePage({currentUser , logout, followers, followings}) {
     const [records, setRecords] = useState([])
@@ -17,7 +18,7 @@ function ProfilePage({currentUser , logout, followers, followings}) {
         }
         else{
             console.log("else")
-            navigate('/')
+            navigate("/")
         }
     },[currentUser])
     
@@ -82,29 +83,31 @@ function ProfilePage({currentUser , logout, followers, followings}) {
     if(currentUser){
         
         return (
+        <div className="profile-page-container">
             <div>
-        <button onClick={logout}>Logout</button>
-        <button onClick={handleForm}>Add New Record</button>
-        <h1>Welcome {currentUser.username} </h1>   
-        <div>
-            <h1>{followers.length} Followers</h1>
-            <h1>{followings.length} Following</h1>
-        </div> 
-        {showForm? 
-                    <div>
-                        <h3>Enter record details</h3>
-                        <form onSubmit={submitHandler}>
-                            <input value={recordForm.title} onChange={changeHandler} name= "title" placeholder='Enter title'/>
-                            <input value={recordForm.artist} onChange={changeHandler} name= "artist" placeholder='Enter artist'/>
-                            <input value={recordForm.year} onChange={changeHandler} name= "year" placeholder='Enter year'/>
-                            <input value={recordForm.genre} onChange={changeHandler} name= "genre" placeholder='Enter genre'/>
-                            <input value={recordForm.cover_art} onChange={changeHandler} name= "cover_art" placeholder='Enter cover art'/>
-                            <input type='submit'/>
-                        </form>
-                   </div>
-        :null}
-        <Collection onEdit={handleEdit} handleDelete={handleDelete} records ={records} currentUser={currentUser}/>
-    </div>
+                <button className="profile-page-button" onClick={logout}>Logout</button>
+                <button className="profile-page-button" onClick={handleForm}>Add New Record</button>
+            </div>
+            <div className="profile-page-data">
+                <h1>Welcome  {currentUser.username} </h1>
+                <h1>{followers.length} Followers</h1>
+                <h1>{followings.length} Following</h1>
+            </div> 
+            {showForm? 
+                        <div className='profile-page-form-container'>
+                            <h3>Enter record details</h3>
+                            <form className='profile-page-form' onSubmit={submitHandler}>
+                                <input className="profile-page-input-field" value={recordForm.title} onChange={changeHandler} name= "title" placeholder='Enter title'/>
+                                <input className="profile-page-input-field" value={recordForm.artist} onChange={changeHandler} name= "artist" placeholder='Enter artist'/>
+                                <input className="profile-page-input-field" value={recordForm.year} onChange={changeHandler} name= "year" placeholder='Enter year'/>
+                                <input className="profile-page-input-field" value={recordForm.genre} onChange={changeHandler} name= "genre" placeholder='Enter genre'/>
+                                <input value={recordForm.cover_art} onChange={changeHandler} name= "cover_art" placeholder='Enter cover art'/>
+                                <input type='submit'/>
+                            </form>
+                    </div>
+            :null}
+            <Collection onEdit={handleEdit} handleDelete={handleDelete} records ={records} currentUser={currentUser}/>
+        </div>
     )}
 
     else{

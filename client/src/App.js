@@ -8,6 +8,8 @@ import AboutPage from './componenents/AboutPage';
 import NavBar from './componenents/NavBar';
 import MainFeed from './componenents/MainFeed';
 import UsersPage from './componenents/UsersPage';
+import DiscoverPage from './componenents/DiscoverPage';
+import Settings from './componenents/Settings';
 
 function App() {
   const [currentUser, setUser] = useState(null)
@@ -69,6 +71,17 @@ function App() {
     .then(data => setUser(data))
   }
 
+  function handleUpdate(userupdate){
+    fetch('/update',{
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userupdate)
+    })
+    .then(response => response.json())
+    .then(data => setUser(data))
+  
+  }
+
   function handleLogout(){
     setUser(null)
     fetch('/logout',{
@@ -78,7 +91,7 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      {currentUser? <NavBar/>: null}
       <Routes>
         <Route path = "/" element ={<Login attemptLogin={handleLogin} currentUser={currentUser}/>}/>
         <Route path ="main_feed" element={<MainFeed currentUser={currentUser} followings={followings}/>}/>     
@@ -86,6 +99,8 @@ function App() {
         <Route path = "profile_page" element={<ProfilePage logout={handleLogout} currentUser={currentUser} followers={followers} followings={followings}/>}/>
         <Route path ="aboutpage" element={<AboutPage/>}/>
         <Route path ="users/:id" element={<UsersPage currentUser={currentUser}/>}/>
+        <Route path ='discoveries' element={<DiscoverPage currentUser={currentUser}/>}/>
+        <Route path ='settings' element={<Settings attemptUpdate={handleUpdate}/>}/>
       </Routes>
     </>
   );

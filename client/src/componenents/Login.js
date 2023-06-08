@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useNavigate} from "react-router-dom"
+import './Login.css'
 
 function Login({attemptLogin, currentUser}) {
     
@@ -32,15 +33,20 @@ function Login({attemptLogin, currentUser}) {
     }
 
     return (
-    <div>
-        <h1>Login</h1>
-        <form onSubmit={submitHandler}>
-            <input name='username' placeholder='Enter username' onChange={changeHandler} value={formData.username}/>
-            <input name='password' placeholder='Enter password' onChange={changeHandler} value={formData.password}/>
-            <input type='submit'/>
-        </form>
-        <h1>Don't have an account? Signup</h1>
-        <button onClick={clickHandler}>Signup</button>
+    <div className='login-container'>
+        <div className='login-only'>
+            <h1 className='login-logo'>Collectorsgramm</h1>
+            <form className='login-form' onSubmit={submitHandler}>
+                <input className="login-input-field" name='username' placeholder='Username' onChange={changeHandler} value={formData.username}/>
+                <input className="login-input-field" name='password' placeholder='Password' onChange={changeHandler} value={formData.password}/>
+                <input className="login-submit-button" type='submit' value="Log in"/>
+            </form>
+        </div>
+        <div className='login-signup-only'>
+            <p className="login-signup-text">Don't have an account? 
+                <button className="login-signup-button" onClick={clickHandler}>Signup</button>
+            </p>
+        </div>
     </div>
   )
 }
