@@ -54,7 +54,7 @@ Inspired by my personal love of vinyl records and music, Collectorsgramm is a so
 
 - Main Feed: A customized feed displaying posts from followers users
 <img width="467" alt="Screen Shot 2024-01-18 at 1 42 15 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/68d6c574-c241-48cf-a848-8f1e8351bced">
-- Profile Pages: Dedicated pages for each user, showcasing their individual posts and profile information
+- Profile Pages: Dedicated pages for each user, showcasing their individual posts and prpfoile information
 <img width="906" alt="Screen Shot 2024-01-18 at 1 42 27 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/b37cfe99-a965-4b6c-a80b-be8daa1bdbe6">
 
 
