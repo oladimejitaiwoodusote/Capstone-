@@ -1,7 +1,11 @@
 # Collectorsgramm
 
-This project is the culmination of my learning journey at Flatiron school .This is a full-stack web application built using React, Python, and Flask-SQLAlchemy. Inspired by my love for music and vinyl records, the goal of this project was to create a social media site for vinyl collectors, where users can create accounts, log in, and connect with other vinyl enthusiasts like myself.
+Inspired by my personal love of vinyl records and music, Collectorsgramm is a social media application built for react.js and flask for vinyl enthusiasts to show off their collections and connect with other vinyl collectors. 
 
+<img width="448" alt="Screen Shot 2024-01-05 at 4 58 49 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/b88dfd7f-fd0f-4f22-a954-b61bc2dce6a3">
+
+
+#OLD STUFF (TO DELETE)
 ## Features
 
 * User Authentication: Users can create accounts and log in to the site.
