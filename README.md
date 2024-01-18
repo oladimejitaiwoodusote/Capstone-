@@ -34,6 +34,21 @@ Inspired by my personal love of vinyl records and music, Collectorsgramm is a so
 - Profile Customization: Users can edit their profiles
 <img width="482" alt="Screen Shot 2024-01-18 at 1 22 10 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/53379a80-a210-4ede-8b9d-c7ac0033e0ca">
 
+### Social Interation
+- Following System: Users can follow and unfollow other users, creating a personalized feed and network
+- Post Interaction: Users can like and comment on posts
+- Discovery Page: Users can explore posts from users not currently followed
+<img width="575" alt="Screen Shot 2024-01-18 at 1 27 08 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/e467f2b7-a8d0-45f0-9146-1f296ef3ebff">
+
+
+### Content Creation and Management
+
+- Post Creation: Users can upload new posts
+<img width="587" alt="Screen Shot 2024-01-18 at 1 35 45 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/205ac545-6f4b-4882-90c6-b1a9aaae0b92">
+<img width="383" alt="Screen Shot 2024-01-18 at 1 36 27 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/5fa81677-3625-4f94-99e9-5e895cc61ffa">
+- Post Editing and Deleting: Users can edit and delete uploaded posts
+<img width="346" alt="Screen Shot 2024-01-18 at 1 36 09 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/f62f829c-ae32-4f06-bebd-52f7eecaa226">
+
 
 
 
