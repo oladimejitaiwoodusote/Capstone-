@@ -46,6 +46,7 @@ Inspired by my personal love of vinyl records and music, Collectorsgramm is a so
 - Post Creation: Users can upload new posts
 <img width="587" alt="Screen Shot 2024-01-18 at 1 35 45 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/205ac545-6f4b-4882-90c6-b1a9aaae0b92">
 <img width="383" alt="Screen Shot 2024-01-18 at 1 36 27 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/5fa81677-3625-4f94-99e9-5e895cc61ffa">
+  
 - Post Editing and Deleting: Users can edit and delete uploaded posts
 <img width="346" alt="Screen Shot 2024-01-18 at 1 36 09 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/f62f829c-ae32-4f06-bebd-52f7eecaa226">
 
