@@ -4,6 +4,30 @@ Inspired by my personal love of vinyl records and music, Collectorsgramm is a so
 
 <img width="448" alt="Screen Shot 2024-01-05 at 4 58 49 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/b88dfd7f-fd0f-4f22-a954-b61bc2dce6a3">
 
+##Technologies Used
+
+### Front End Technologies
+
+- React.js
+- Material-UI
+
+### Back End Technologies
+
+- Flask
+- Flask-SQL Alchemy
+- Flask-Migrate
+
+### Database
+
+-SQLite
+
+## Features
+
+### User Account and Profile Management
+
+- Account Creation: Users can sign up to create personal accounts
+
+
 
 #OLD STUFF (TO DELETE)
 ## Features
