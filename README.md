@@ -57,16 +57,18 @@ Inspired by my personal love of vinyl records and music, Collectorsgramm is a so
 <img width="467" alt="Screen Shot 2024-01-18 at 1 42 15 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/68d6c574-c241-48cf-a848-8f1e8351bced">
 <img width="906" alt="Screen Shot 2024-01-18 at 1 42 27 PM" src="https://github.com/oladimejitaiwoodusote/Capstone-/assets/79773788/b37cfe99-a965-4b6c-a80b-be8daa1bdbe6">
 
+### Backend (Flask App)
 
-#OLD STUFF (TO DELETE)
-## Features
+- Clone the repo `https://github.com/oladimejitaiwoodusote/Capstone-`
+- Navigate to the server directory `cd server`
+- Create a virtual python environment  `python -m venv myenv`
+- Activate virtual environment  `source myenv/bin/activate`
+- Install required project dependencies  `pip install -r requirements.txt`
+- Set up the flask database  `flask db init` `flask db migrate -m 'Initial migration'` `flask db upgrade `
+- Run the flask app  `flask run`
 
-* User Authentication: Users can create accounts and log in to the site.
-* Main Feed: Users can access a main feed page where they can view posts from users they are following.
-* Follow/Unfollow Functionality: Users can follow or unfollow other users.
-* Vinyl Record Posts: Each post in the feed represents a vinyl record owned by the user. Users can click on a post to view detailed information about the record.
-* Likes and Comments: Users can like and comment on posts.
-* User Profiles: Users can visit other users' profiles and access their own profile page through a navbar link.
-* Profile Customization: Users can customize their profile settings on a dedicated settings page.
-* User Discovery: Users can discover and follow other users through a discovery page.
+### Frontend (React App)
 
+- Open a new terminal and naivagate to the client directory `cd ..` `cd client`
+- Install the necessary npm packages `npm install`
+- Start the React development server `flask run`
